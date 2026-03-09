@@ -1,26 +1,35 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --font-logo: var(--font-bodoni);
+  --font-sans: var(--font-poppins), system-ui, sans-serif;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-logo: var(--font-bodoni);
+  --font-sans: var(--font-poppins), system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #ffffff;
+  color: #1e1e1e;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  font-family: var(--font-poppins), sans-serif;
+}
+
+.poppins {
+  font-family: var(--font-poppins), sans-serif;
+}
+
+/* Responsive overrides for Hero */
+@media (max-width: 900px) {
+  .hero-title {
+    font-size: 3rem !important;
+    line-height: 3rem !important;
+  }
 }

@@ -1,65 +1,195 @@
-import Image from "next/image";
+"use client";
+
+import { useEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Header from "./components/Header";
+import Hero from "./components/Hero";
+import BestSelling from "./components/BestSelling";
+import AboutUs from "./components/AboutUs";
+import Categories from "./components/Categories";
+import Testimonials from "./components/Testimonials";
+import Footer from "./components/Footer";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Hero Section
+      const heroTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: "#hero-section",
+          start: "top 80%",
+          toggleActions: "play none none reverse",
+        }
+      });
+
+      heroTl.from(".hero-title", {
+        y: 60,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power3.out",
+      })
+      .from(".stats-container", {
+        y: 30,
+        opacity: 0,
+        duration: 0.6,
+        ease: "power3.out",
+      }, "-=0.4")
+      .from(".search-wrapper", {
+        y: 30,
+        opacity: 0,
+        duration: 0.6,
+        ease: "power3.out",
+      }, "-=0.3")
+      .from(".hero-image-wrapper", {
+        x: 60,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out",
+      }, "-=0.6");
+
+      // Best Selling Section
+      gsap.from(".best-selling-title, .best-selling-text, .best-selling-button", {
+        scrollTrigger: {
+          trigger: "#best-selling-section",
+          start: "top 80%",
+        },
+        y: 50,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: "power3.out"
+      });
+
+      gsap.from(".best-selling-card", {
+        scrollTrigger: {
+          trigger: "#best-selling-section",
+          start: "top 70%",
+        },
+        y: 60,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: "power3.out",
+        delay: 0.4
+      });
+
+      // About Us Section
+      gsap.from(".about-us-title, .about-us-text", {
+        scrollTrigger: {
+          trigger: "#about-us-section",
+          start: "top 80%",
+        },
+        y: 40,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: "power3.out"
+      });
+
+      gsap.from(".about-us-item", {
+        scrollTrigger: {
+          trigger: "#about-us-section",
+          start: "top 70%",
+        },
+        scale: 0.8,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: "back.out(1.7)"
+      });
+
+      // Categories Section
+      gsap.from(".categories-title, .categories-text", {
+        scrollTrigger: {
+          trigger: "#categories-section",
+          start: "top 80%",
+        },
+        y: 40,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: "power3.out"
+      });
+
+      gsap.from(".categories-bg", {
+        scrollTrigger: {
+          trigger: "#categories-section",
+          start: "top 60%",
+        },
+        opacity: 0,
+        scaleY: 0,
+        transformOrigin: "bottom center",
+        duration: 1,
+        ease: "power3.out"
+      });
+
+      gsap.from(".categories-item", {
+        scrollTrigger: {
+          trigger: "#categories-section",
+          start: "top 70%",
+        },
+        y: 60,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: "power3.out",
+        delay: 0.3
+      });
+
+      // Testimonials Section
+      gsap.from(".testimonials-title, .swiper-custom-pagination", {
+        scrollTrigger: {
+          trigger: "#testimonials-section",
+          start: "top 80%",
+        },
+        y: 30,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: "power3.out"
+      });
+
+      gsap.from(".testimonials-swiper", {
+        scrollTrigger: {
+          trigger: "#testimonials-section",
+          start: "top 70%",
+        },
+        scale: 0.95,
+        opacity: 0,
+        duration: 1,
+        ease: "power2.out"
+      });
+
+      // Footer Section
+      gsap.from(".footer-brand, .footer-column, .footer-bottom", {
+        scrollTrigger: {
+          trigger: "#footer",
+          start: "top 90%",
+        },
+        y: 30,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: "power3.out"
+      });
+    });
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <main className="flex flex-col justify-center items-center mx-auto">
+      <Header />
+      <Hero />
+      <BestSelling />
+      <AboutUs />
+      <Categories />
+      <Testimonials />
+      <Footer />
+    </main>
   );
 }
+
